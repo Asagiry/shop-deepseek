@@ -37,20 +37,20 @@ export default function Home() {
 
   return (
     <div>
-      <div className="text-center mb-12 pt-4">
-        <h1 className="text-5xl font-extrabold text-white mb-3 tracking-tight">
+      <div className="text-center mb-8 sm:mb-12 pt-2 sm:pt-4">
+        <h1 className="text-3xl sm:text-5xl font-extrabold text-white mb-2 sm:mb-3 tracking-tight">
           Indie Game <span className="text-brand-400 glow-text">Merch</span>
         </h1>
-        <p className="text-gray-400 text-lg max-w-2xl mx-auto">
+        <p className="text-gray-400 text-sm sm:text-lg max-w-2xl mx-auto px-2">
           Official apparel and posters from your favorite indie titles. Vibe Miner, pixel dungeons, and synthwave dreams.
         </p>
       </div>
 
-      <div className="flex flex-wrap gap-3 mb-8 items-center justify-between">
+      <div className="space-y-3 mb-6 sm:mb-8">
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => { setSelectedCategory(''); setPage(0); }}
-            className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${!selectedCategory ? 'bg-brand-600 text-white' : 'bg-dark-700 text-gray-300 hover:bg-dark-600'}`}
+            className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${!selectedCategory ? 'bg-brand-600 text-white' : 'bg-dark-700 text-gray-300 hover:bg-dark-600'}`}
           >
             All
           </button>
@@ -58,24 +58,24 @@ export default function Home() {
             <button
               key={c.slug}
               onClick={() => { setSelectedCategory(selectedCategory === c.slug ? '' : c.slug); setPage(0); }}
-              className={`px-4 py-2 rounded-lg text-sm font-medium transition-all ${selectedCategory === c.slug ? 'bg-brand-600 text-white' : 'bg-dark-700 text-gray-300 hover:bg-dark-600'}`}
+              className={`px-3 py-1.5 sm:px-4 sm:py-2 rounded-lg text-xs sm:text-sm font-medium transition-all ${selectedCategory === c.slug ? 'bg-brand-600 text-white' : 'bg-dark-700 text-gray-300 hover:bg-dark-600'}`}
             >
               {c.name}
             </button>
           ))}
         </div>
-        <div className="flex gap-2 items-center">
+        <div className="flex flex-wrap gap-2 items-center">
           <input
             type="text" placeholder="Search..." value={search}
             onChange={e => { setSearch(e.target.value); setPage(0); }}
-            className="input-field max-w-[200px] py-1.5 text-sm"
+            className="input-field max-w-full sm:max-w-[200px] py-1.5 text-sm flex-1 sm:flex-none"
           />
           <select
             value={sort}
             onChange={e => setSort(e.target.value)}
-            className="input-field max-w-[160px] py-1.5 text-sm"
+            className="input-field max-w-full sm:max-w-[160px] py-1.5 text-sm flex-1 sm:flex-none"
           >
-            <option value="">Default</option>
+            <option value="">Sort: Default</option>
             <option value="price_asc">Price: Low to High</option>
             <option value="price_desc">Price: High to Low</option>
             <option value="name_asc">Name: A-Z</option>

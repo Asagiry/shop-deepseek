@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
+import Footer from './components/Footer';
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
 import Cart from './pages/Cart';
@@ -12,9 +13,9 @@ import AdminDashboard from './pages/AdminDashboard';
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-dark-900">
+    <div className="min-h-screen bg-dark-900 flex flex-col">
       <Navbar />
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex-1 w-full">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/product/:id" element={<ProductDetail />} />
@@ -27,6 +28,7 @@ export default function App() {
           <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </main>
+      <Footer />
     </div>
   );
 }

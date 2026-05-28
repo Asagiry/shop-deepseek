@@ -35,28 +35,28 @@ async function downloadImage(url: string, destPath: string): Promise<void> {
 
 router.post('/products', async (req: Request, res: Response) => {
   try {
-    const { name, description, price, categoryId, sizes, stock, imageUrl } = req.body;
-    if (!name || !price) {
+    const { name, description, price, category_id, sizes, stock, image_url } = req.body;
+    if (!name || price === undefined || price === null) {
       res.status(400).json({ error: 'Name and price are required' });
       return;
     }
 
     let imagePath = '';
-    if (imageUrl) {
+    if (image_url) {
       const filename = `upload_${Date.now()}.png`;
       const dest = path.join(uploadsDir, filename);
       try {
-        await downloadImage(imageUrl, dest);
+        await downloadImage(image_url, dest);
         imagePath = `/assets/${filename}`;
       } catch {
-        imagePath = imageUrl;
+        imagePath = image_url;
       }
     }
 
     const result = await pool.query(
       `INSERT INTO products (name, description, price, image_url, category_id, sizes, stock)
        VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *`,
-      [name, description || '', price, imagePath, categoryId || null, sizes || [], stock || 0]
+      [name, description || '', price, imagePath, category_id || null, sizes || [], stock || 0]
     );
     res.status(201).json(result.rows[0]);
   } catch (err: any) {
@@ -67,7 +67,7 @@ router.post('/products', async (req: Request, res: Response) => {
 router.put('/products/:id', async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const { name, description, price, categoryId, sizes, stock, imageUrl } = req.body;
+    const { name, description, price, category_id, sizes, stock, image_url } = req.body;
 
     const existing = await pool.query('SELECT * FROM products WHERE id=$1', [id]);
     if (existing.rows.length === 0) {
@@ -76,14 +76,14 @@ router.put('/products/:id', async (req: Request, res: Response) => {
     }
 
     let imagePath = existing.rows[0].image_url;
-    if (imageUrl && imageUrl !== existing.rows[0].image_url) {
+    if (image_url && image_url !== existing.rows[0].image_url) {
       const filename = `upload_${Date.now()}.png`;
       const dest = path.join(uploadsDir, filename);
       try {
-        await downloadImage(imageUrl, dest);
+        await downloadImage(image_url, dest);
         imagePath = `/assets/${filename}`;
       } catch {
-        imagePath = imageUrl;
+        imagePath = image_url;
       }
     }
 
@@ -91,12 +91,12 @@ router.put('/products/:id', async (req: Request, res: Response) => {
       `UPDATE products SET name=$1, description=$2, price=$3, image_url=$4, category_id=$5, sizes=$6, stock=$7, updated_at=NOW()
        WHERE id=$8 RETURNING *`,
       [
-        name || existing.rows[0].name,
+        name !== undefined ? name : existing.rows[0].name,
         description !== undefined ? description : existing.rows[0].description,
-        price || existing.rows[0].price,
+        price !== undefined ? price : existing.rows[0].price,
         imagePath,
-        categoryId || existing.rows[0].category_id,
-        sizes || existing.rows[0].sizes,
+        category_id !== undefined ? category_id : existing.rows[0].category_id,
+        sizes !== undefined ? sizes : existing.rows[0].sizes,
         stock !== undefined ? stock : existing.rows[0].stock,
         id
       ]
