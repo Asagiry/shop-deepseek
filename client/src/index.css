@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+body {
+  font-family: 'Inter', sans-serif;
+}
+
+.card-hover {
+  @apply transition-all duration-300 ease-in-out;
+}
+.card-hover:hover {
+  @apply transform -translate-y-1 shadow-lg shadow-brand-500/20;
+}
+
+.btn-primary {
+  @apply bg-brand-600 hover:bg-brand-700 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-200 active:scale-95;
+}
+
+.btn-secondary {
+  @apply bg-dark-600 hover:bg-dark-500 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-200 border border-dark-400;
+}
+
+.btn-danger {
+  @apply bg-red-600 hover:bg-red-700 text-white font-semibold py-2.5 px-6 rounded-lg transition-all duration-200;
+}
+
+.input-field {
+  @apply w-full bg-dark-700 border border-dark-500 rounded-lg px-4 py-2.5 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-transparent transition-all;
+}
+
+.glow-text {
+  text-shadow: 0 0 20px rgba(92, 124, 250, 0.4);
+}
