@@ -5,7 +5,7 @@ echo "=== E-Commerce Merch Shop Deployment ==="
 
 SSH_KEY="./id_ed25519"
 SSH_USER="base-ubuntu"
-SSH_IP="192.168.1.178"
+SSH_IP="192.168.1.126"
 REMOTE_DIR="/home/base-ubuntu/shop"
 
 echo "[1/6] Copying project to VM..."
