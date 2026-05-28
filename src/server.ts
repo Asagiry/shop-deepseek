@@ -16,7 +16,7 @@ const app = express();
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 80;
 
 app.use(cors({
-  origin: ['http://deepseek-shop.voimaxgm.online', 'http://192.168.1.178', 'http://localhost:5173'],
+  origin: ['http://deepseek-shop.voimaxgm.online', 'http://192.168.1.126', 'http://localhost:5173'],
   credentials: true,
 }));
 
